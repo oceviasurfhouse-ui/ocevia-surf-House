@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OCEVIA Surf House</title>
+
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+<!-- EMAILJS -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<!-- STRIPE -->
+<script src="https://js.stripe.com/v3/"></script>
+
+<!-- FONT AWESOME -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:system-ui;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+background:#000;
+color:#fff;
+overflow-x:hidden;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:12px 24px;
+background:rgba(0,0,0,0.45);
+backdrop-filter:blur(14px);
+z-index:999;
+}
+
+.nav-logo{
+display:flex;
+align-items:center;
+gap:12px;
+font-size:22px;
+font-weight:bold;
+}
+
+.logo-icon{
+font-size:32px;
+background:linear-gradient(135deg, #1e90ff, #00d4ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+}
+
+/* HERO */
+
+.hero{
+height:100vh;
+background:
+linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.88)),
+url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')
+center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:20px;
+}
+
+.hero-content{
+max-width:850px;
+}
+
+.hero h1{
+font-size:65px;
+font-weight:900;
+line-height:1.05;
+}
+
+.hero p{
+margin-top:18px;
+font-size:20px;
+color:#ddd;
+}
+
+.btn{
+padding:14px 24px;
+border:none;
+border-radius:40px;
+cursor:pointer;
+font-weight:bold;
+margin:10px;
+transition:0.3s;
+}
+
+.btn:hover{
+transform:translateY(-3px);
+}
+
+.primary{
+background:#1e90ff;
+color:#fff;
+}
+
+.outline{
+background:transparent;
+border:1px solid #fff;
+color:#fff;
+}
+
+/* SECTIONS */
+
+section{
+padding:90px 20px;
+text-align:center;
+}
+
+h2{
+font-size:38px;
+margin-bottom:25px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:20px;
+max-width:1100px;
+margin:auto;
+}
+
+.card{
+background:#111;
+padding:25px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.08);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card img{
+width:100%;
+height:230px;
+object-fit:cover;
+border-radius:15px;
+margin-bottom:15px;
+}
+
+/* BOOKING */
+
+.booking{
+background:#111;
+padding:25px;
+border-radius:20px;
+max-width:550px;
+margin:auto;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+input,
+select{
+width:100%;
+padding:14px;
+margin:10px 0;
+border:none;
+border-radius:12px;
+background:#1a1a1a;
+color:#fff;
+}
+
+/* DASHBOARD */
+
+.admin{
+background:#111;
+padding:25px;
+border-radius:20px;
+max-width:650px;
+margin:auto;
+text-align:left;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.admin p{
+margin:15px 0;
+font-size:18px;
+}
+
+/* CHATBOT */
+
+.chatbot{
+position:fixed;
+bottom:90px;
+right:20px;
+width:300px;
+background:#111;
+border-radius:20px;
+overflow:hidden;
+display:none;
+flex-direction:column;
+z-index:999;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.chat-header{
+background:#1e90ff;
+padding:14px;
+font-weight:bold;
+}
+
+.chat-body{
+height:220px;
+overflow:auto;
+padding:10px;
+font-size:14px;
+}
+
+.chat-body p{
+margin:8px 0;
+}
+
+.chat-input{
+display:flex;
+}
+
+.chat-input input{
+flex:1;
+margin:0;
+border-radius:0;
+}
+
+.chat-input button{
+background:#1e90ff;
+border:none;
+color:#fff;
+padding:12px;
+cursor:pointer;
+}
+
+/* FLOAT BUTTONS */
+
+.chat-toggle{
+position:fixed;
+bottom:20px;
+left:20px;
+background:#1e90ff;
+padding:15px 18px;
+border-radius:50px;
+cursor:pointer;
+z-index:999;
+}
+
+.whatsapp{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+padding:15px 18px;
+border-radius:50px;
+text-decoration:none;
+color:#fff;
+font-weight:bold;
+z-index:999;
+}
+
+/* FOOTER */
+
+footer{
+padding:40px 20px;
+text-align:center;
+color:#777;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:42px;
+}
+
+.hero p{
+font-size:16px;
+}
+
+.nav-logo{
+gap:8px;
+}
+
+.logo-icon{
+font-size:28px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav>
+<div class="nav-logo">
+<div class="logo-icon">🌊</div>
+<b>OCEVIA</b>
+</div>
+<div>Surf House 🏄</div>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<div class="hero-content">
+
+<h1>
+Premium Surf Experience
+</h1>
+
+<p>
+Surf • Stay • Explore • Book Online 🌍
+</p>
+
+<button class="btn primary" onclick="scrollBooking()">
+Book Now
+</button>
+
+<button class="btn outline" onclick="payNow()">
+Pay Deposit 💳
+</button>
+
+</div>
+
+</div>
+
+<!-- ROOMS -->
+
+<section>
+
+<h2>Luxury Surf Stay</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98">
+<h3>Surf Loft</h3>
+<p>Minimal surf lifestyle experience.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<h3>Ocean Suite</h3>
+<p>Luxury oceanfront room.</p>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<h3>Private Villa</h3>
+<p>Premium surf retreat vibes.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- SURF CONDITIONS -->
+
+<section>
+
+<h2>Live Surf Conditions 🌊</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Wave Height</h3>
+<p id="waveHeight" style="font-size:40px;color:#1e90ff;margin-top:12px">
+1.8m
+</p>
+</div>
+
+<div class="card">
+<h3>Water Temp</h3>
+<p id="waterTemp" style="font-size:40px;color:#00d4ff;margin-top:12px">
+21°C
+</p>
+</div>
+
+<div class="card">
+<h3>Wind Speed</h3>
+<p id="windSpeed" style="font-size:40px;color:#7dff7d;margin-top:12px">
+12 km/h
+</p>
+</div>
+
+<div class="card">
+<h3>Tide</h3>
+<p id="tide" style="font-size:40px;color:#ffc107;margin-top:12px">
+High
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- BOOKING -->
+
+<section id="bookingSection">
+
+<h2>Booking System</h2>
+
+<div class="booking">
+
+<input id="name" placeholder="Full Name">
+
+<input id="email" placeholder="Email">
+
+<select id="room">
+<option>Surf Loft</option>
+<option>Ocean Suite</option>
+<option>Private Villa</option>
+</select>
+
+<input id="days" type="number" placeholder="Number of Days">
+
+<button class="btn primary" onclick="book()">
+Confirm Booking
+</button>
+
+<p id="result" style="margin-top:15px"></p>
+
+</div>
+
+</section>
+
+<!-- DASHBOARD -->
+
+<section>
+
+<h2>Admin Dashboard</h2>
+
+<div class="admin">
+
+<p>
+Total Bookings:
+<span id="count">0</span>
+</p>
+
+<p>
+Revenue:
+<span id="revenue">0€</span>
+</p>
+
+</div>
+
+</section>
+
+<!-- CHATBOT -->
+
+<div class="chatbot" id="chat">
+
+<div class="chat-header">
+OCEVIA Assistant
+</div>
+
+<div class="chat-body" id="chatBody">
+
+<p>
+Hello 👋 I can help you plan your surf stay.
+</p>
+
+</div>
+
+<div class="chat-input">
+
+<input id="msg" placeholder="Ask something...">
+
+<button onclick="sendMsg()">
+Send
+</button>
+
+</div>
+
+</div>
+
+<div class="chat-toggle" onclick="toggleChat()">
+Chat
+</div>
+
+<!-- WHATSAPP -->
+
+<a class="whatsapp" href="https://wa.me/212600000000">
+WhatsApp
+</a>
+
+<!-- FOOTER -->
+
+<footer>
+© 2026 OCEVIA Surf House 🌊
+</footer>
+
+<script>
+
+/* SUPABASE */
+
+const supabaseUrl =
+"https://YOUR_PROJECT.supabase.co";
+
+const supabaseKey =
+"YOUR_SUPABASE_ANON_KEY";
+
+const supabaseClient =
+supabase.createClient(
+supabaseUrl,
+supabaseKey
+);
+
+/* EMAILJS */
+
+emailjs.init(
+"YOUR_EMAILJS_PUBLIC_KEY"
+);
+
+/* STRIPE */
+
+const stripe =
+Stripe(
+"YOUR_STRIPE_PUBLIC_KEY"
+);
+
+/* BOOKING */
+
+async function book(){
+
+let name =
+document.getElementById("name").value;
+
+let email =
+document.getElementById("email").value;
+
+let room =
+document.getElementById("room").value;
+
+let days =
+document.getElementById("days").value;
+
+if(!name || !email || !days){
+
+alert("Fill all fields");
+
+return;
+
+}
+
+let price = days * 90;
+
+const { data, error } =
+await supabaseClient
+.from("bookings")
+.insert([
+{
+name,
+email,
+room,
+days,
+price
+}
+]);
+
+if(error){
+
+console.log(error);
+
+alert("Booking failed");
+
+}else{
+
+document.getElementById("result")
+.innerText =
+"Booking Confirmed 🌊 Price: "
++ price + "€";
+
+sendBookingEmail(
+name,
+email,
+room,
+days,
+price
+);
+
+loadDashboard();
+
+}
+
+}
+
+/* EMAIL */
+
+function sendBookingEmail(
+name,
+email,
+room,
+days,
+price
+){
+
+emailjs.send(
+"YOUR_SERVICE_ID",
+"YOUR_TEMPLATE_ID",
+{
+client_name:name,
+client_email:email,
+room:room,
+days:days,
+price:price
+}
+);
+
+}
+
+/* DASHBOARD */
+
+async function loadDashboard(){
+
+const { data, error } =
+await supabaseClient
+.from("bookings")
+.select("*");
+
+if(data){
+
+let total = 0;
+
+data.forEach(item=>{
+
+total += item.price;
+
+});
+
+document.getElementById("count")
+.innerText = data.length;
+
+document.getElementById("revenue")
+.innerText = total + "€";
+
+}
+
+}
+
+loadDashboard();
+
+/* STRIPE */
+
+function payNow(){
+
+window.location.href =
+"https://buy.stripe.com/test_xxxxxxxxx";
+
+}
+
+/* SURF CONDITIONS */
+
+function updateSurf(){
+
+let wave =
+(Math.random()*2+1).toFixed(1);
+
+let temp =
+Math.floor(Math.random()*6+18);
+
+let wind =
+Math.floor(Math.random()*15+5);
+
+let tides = [
+"High",
+"Low",
+"Mid"
+];
+
+let tide =
+tides[
+Math.floor(
+Math.random()*tides.length
+)
+];
+
+document.getElementById("waveHeight")
+.innerText =
+wave + "m";
+
+document.getElementById("waterTemp")
+.innerText =
+temp + "°C";
+
+document.getElementById("windSpeed")
+.innerText =
+wind + " km/h";
+
+document.getElementById("tide")
+.innerText =
+tide;
+
+}
+
+updateSurf();
+
+setInterval(updateSurf,30000);
+
+/* CHATBOT */
+
+function toggleChat(){
+
+let c =
+document.getElementById("chat");
+
+c.style.display =
+c.style.display==="flex"
+? "none"
+: "flex";
+
+}
+
+function sendMsg(){
+
+let msg =
+document.getElementById("msg").value;
+
+if(!msg) return;
+
+let chat =
+document.getElementById("chatBody");
+
+chat.innerHTML +=
+"<p><b>You:</b> "
++ msg +
+"</p>";
+
+setTimeout(()=>{
+
+chat.innerHTML +=
+"<p><b>OCEVIA:</b> Perfect 🌊 We can help you book your surf stay.</p>";
+
+chat.scrollTop =
+chat.scrollHeight;
+
+},500);
+
+document.getElementById("msg").value="";
+
+}
+
+/* SCROLL */
+
+function scrollBooking(){
+
+document
+.getElementById("bookingSection")
+.scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+</script>
+
+</body>
+</html>
