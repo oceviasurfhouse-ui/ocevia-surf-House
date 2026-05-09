@@ -3,916 +3,626 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OCEVIA Surf House</title>
+<meta name="description" content="OCEVIA Surf House - Premium Surf Experience in Morocco">
+<meta name="theme-color" content="#000000">
+<title>OCEVIA Surf House PRO</title>
 
-<!-- SUPABASE -->
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-
-<!-- EMAILJS -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
-<!-- STRIPE -->
 <script src="https://js.stripe.com/v3/"></script>
 
-<!-- FONT AWESOME -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:system-ui;
+:root {
+  --primary: #1e90ff;
+  --dark: #000;
+  --light: #fff;
+  --bg: #0a0a0a;
 }
 
-html{
-scroll-behavior:smooth;
+* {
+  box-sizing: border-box;
 }
 
-body{
-background:#000;
-color:#fff;
-overflow-x:hidden;
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background: var(--dark);
+  color: var(--light);
+  line-height: 1.6;
 }
 
-/* NAV */
-
-nav{
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:12px 24px;
-background:rgba(0,0,0,0.45);
-backdrop-filter:blur(14px);
-z-index:999;
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(30, 144, 255, 0.2);
 }
 
-.nav-logo{
-display:flex;
-align-items:center;
-gap:12px;
-font-size:22px;
-font-weight:bold;
+nav h1 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
 }
 
-.logo-icon{
-font-size:32px;
-background:linear-gradient(135deg, #1e90ff, #00d4ff);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-background-clip:text;
+.nav-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
 }
 
-/* HERO */
-
-.hero{
-height:100vh;
-background:
-linear-gradient(to bottom,rgba(0,0,0,0.2),rgba(0,0,0,0.88)),
-url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e')
-center/cover no-repeat;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:20px;
+.nav-actions button {
+  background: transparent;
+  border: none;
+  color: var(--light);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: all 0.3s;
 }
 
-.hero-content{
-max-width:850px;
+.nav-actions button:hover {
+  background: rgba(30, 144, 255, 0.2);
 }
 
-.hero h1{
-font-size:65px;
-font-weight:900;
-line-height:1.05;
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), 
+              url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80') center/cover;
+  margin-top: 60px;
+  flex-direction: column;
 }
 
-.hero p{
-margin-top:18px;
-font-size:20px;
-color:#ddd;
+.hero h1 {
+  font-size: clamp(32px, 8vw, 60px);
+  margin-bottom: 10px;
+  font-weight: 700;
 }
 
-.btn{
-padding:14px 24px;
-border:none;
-border-radius:40px;
-cursor:pointer;
-font-weight:bold;
-margin:10px;
-transition:0.3s;
+.hero p {
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: #ccc;
 }
 
-.btn:hover{
-transform:translateY(-3px);
+section {
+  padding: 80px 20px;
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.primary{
-background:#1e90ff;
-color:#fff;
+section h2 {
+  font-size: 36px;
+  margin-bottom: 50px;
+  color: var(--primary);
 }
 
-.outline{
-background:transparent;
-border:1px solid #fff;
-color:#fff;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
 }
 
-/* SECTIONS */
-
-section{
-padding:90px 20px;
-text-align:center;
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(30, 144, 255, 0.2);
+  padding: 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
 }
 
-h2{
-font-size:38px;
-margin-bottom:25px;
+.card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(30, 144, 255, 0.1);
 }
 
-/* GRID */
-
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:20px;
-max-width:1100px;
-margin:auto;
+.card h3 {
+  margin-top: 0;
+  color: var(--primary);
 }
 
-.card{
-background:#111;
-padding:25px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.08);
-transition:0.3s;
-position:relative;
-overflow:hidden;
-}
-
-.card:hover{
-transform:translateY(-8px);
-border-color:rgba(30,144,255,0.3);
-}
-
-.card img{
-width:100%;
-height:230px;
-object-fit:cover;
-border-radius:15px;
-margin-bottom:15px;
-}
-
-.card-tag{
-position:absolute;
-top:10px;
-right:10px;
-background:rgba(30,144,255,0.9);
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:bold;
-}
-
-/* EXPERIENCE SECTION */
-
-.experience-card{
-display:flex;
-align-items:center;
-gap:30px;
-margin:40px 0;
-text-align:left;
-max-width:900px;
-margin-left:auto;
-margin-right:auto;
-background:#111;
-padding:30px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.08);
-}
-
-.experience-image{
-width:280px;
-height:280px;
-border-radius:15px;
-object-fit:cover;
-flex-shrink:0;
-}
-
-.experience-content h3{
-font-size:28px;
-margin-bottom:12px;
-color:#1e90ff;
-}
-
-.experience-content p{
-font-size:16px;
-color:#ccc;
-line-height:1.6;
-margin-bottom:10px;
-}
-
-/* BOOKING */
-
-.booking{
-background:#111;
-padding:25px;
-border-radius:20px;
-max-width:550px;
-margin:auto;
-border:1px solid rgba(255,255,255,0.08);
+.card p {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 15px 0;
 }
 
 input,
-select{
-width:100%;
-padding:14px;
-margin:10px 0;
-border:none;
-border-radius:12px;
-background:#1a1a1a;
-color:#fff;
+select,
+textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 8px 0;
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--light);
+  font-size: 14px;
+  font-family: inherit;
+  transition: all 0.3s;
 }
 
-/* DASHBOARD */
-
-.admin{
-background:#111;
-padding:25px;
-border-radius:20px;
-max-width:650px;
-margin:auto;
-text-align:left;
-border:1px solid rgba(255,255,255,0.08);
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.admin p{
-margin:15px 0;
-font-size:18px;
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* CHATBOT */
-
-.chatbot{
-position:fixed;
-bottom:90px;
-right:20px;
-width:300px;
-background:#111;
-border-radius:20px;
-overflow:hidden;
-display:none;
-flex-direction:column;
-z-index:999;
-border:1px solid rgba(255,255,255,0.08);
+button {
+  padding: 12px 24px;
+  border: none;
+  background: var(--primary);
+  color: var(--light);
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  margin: 10px 5px;
 }
 
-.chat-header{
-background:#1e90ff;
-padding:14px;
-font-weight:bold;
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
 }
 
-.chat-body{
-height:220px;
-overflow:auto;
-padding:10px;
-font-size:14px;
+button:active {
+  transform: translateY(0);
 }
 
-.chat-body p{
-margin:8px 0;
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.chat-input{
-display:flex;
+.form-group {
+  max-width: 450px;
+  margin: 0 auto;
+  text-align: left;
 }
 
-.chat-input input{
-flex:1;
-margin:0;
-border-radius:0;
+.result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  border-left: 4px solid var(--primary);
 }
 
-.chat-input button{
-background:#1e90ff;
-border:none;
-color:#fff;
-padding:12px;
-cursor:pointer;
+.result.success {
+  background: rgba(34, 197, 94, 0.1);
+  border-left-color: #22c55e;
+  color: #86efac;
 }
 
-/* FLOAT BUTTONS */
-
-.chat-toggle{
-position:fixed;
-bottom:20px;
-left:20px;
-background:#1e90ff;
-padding:15px 18px;
-border-radius:50px;
-cursor:pointer;
-z-index:999;
+.result.error {
+  background: rgba(239, 68, 68, 0.1);
+  border-left-color: #ef4444;
+  color: #fca5a5;
 }
 
-.whatsapp{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#25D366;
-padding:15px 18px;
-border-radius:50px;
-text-decoration:none;
-color:#fff;
-font-weight:bold;
-z-index:999;
+.chat {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  background: rgba(10, 10, 10, 0.95);
+  border: 1px solid rgba(30, 144, 255, 0.3);
+  display: none;
+  flex-direction: column;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  z-index: 999;
 }
 
-/* FOOTER */
-
-footer{
-padding:40px 20px;
-text-align:center;
-color:#777;
+.chat.active {
+  display: flex;
 }
 
-/* MOBILE */
-
-@media(max-width:768px){
-
-.hero h1{
-font-size:42px;
+.chat-header {
+  background: var(--primary);
+  padding: 15px;
+  font-weight: 600;
 }
 
-.hero p{
-font-size:16px;
+.chat-body {
+  height: 250px;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.nav-logo{
-gap:8px;
+.chat-body p {
+  margin: 0;
+  padding: 10px;
+  border-radius: 8px;
+  max-width: 90%;
+  word-wrap: break-word;
 }
 
-.logo-icon{
-font-size:28px;
+.chat-body .user {
+  background: rgba(30, 144, 255, 0.2);
+  align-self: flex-end;
+  border-color: var(--primary);
 }
 
-.experience-card{
-flex-direction:column;
-gap:20px;
+.chat-body .ai {
+  background: rgba(100, 100, 100, 0.2);
+  align-self: flex-start;
 }
 
-.experience-image{
-width:100%;
-height:220px;
+#msg {
+  border-radius: 0 0 15px 15px;
+  border-top: 1px solid rgba(30, 144, 255, 0.3);
+  margin: 0;
 }
 
+.chat-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: none;
+  color: var(--light);
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(30, 144, 255, 0.4);
+  transition: all 0.3s;
+  z-index: 998;
 }
 
+.chat-toggle:hover {
+  transform: scale(1.1);
+}
+
+.loading {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.stat-card {
+  background: linear-gradient(135deg, rgba(30, 144, 255, 0.1) 0%, rgba(30, 144, 255, 0.05) 100%);
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(30, 144, 255, 0.2);
+}
+
+.stat-card h4 {
+  margin: 0 0 10px 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.stat-card .value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero {
+    margin-top: 100px;
+  }
+
+  section {
+    padding: 40px 15px;
+  }
+
+  .chat {
+    width: 280px;
+    bottom: 80px;
+    right: 10px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 </style>
 </head>
 
 <body>
 
-<!-- NAV -->
-
 <nav>
-<div class="nav-logo">
-<div class="logo-icon">🌊</div>
-<b>OCEVIA</b>
-</div>
-<div>Surf House 🏄</div>
+  <h1>🌊 OCEVIA Surf House</h1>
+  <div class="nav-actions">
+    <button onclick="handleAuthToggle()"><span id="authText">Login</span></button>
+    <button onclick="scrollToBook()">Book</button>
+  </div>
 </nav>
 
-<!-- HERO -->
-
 <div class="hero">
-
-<div class="hero-content">
-
-<h1>
-Premium Surf Experience in Taghazout
-</h1>
-
-<p>
-Surf • Stay • Explore • Adventure Awaits 🌍
-</p>
-
-<button class="btn primary" onclick="scrollBooking()">
-Book Now
-</button>
-
-<button class="btn outline" onclick="payNow()">
-Pay Deposit 💳
-</button>
-
+  <div>
+    <h1>Surf Experience Morocco</h1>
+    <p>Taghazout • Imsouan • Tamraghte</p>
+    <button onclick="scrollToBook()" style="background: var(--primary); padding: 15px 30px; font-size: 16px;">Book Now</button>
+    <button onclick="scrollToPay()" style="background: transparent; border: 2px solid var(--primary);">Pay Deposit</button>
+  </div>
 </div>
 
-</div>
-
-<!-- ROOMS -->
-
-<section>
-
-<h2>Luxury Surf Stay in Taghazout</h2>
-
-<div class="grid">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1631049307038-da0ec9d70304?w=600&h=400&fit=crop">
-<div class="card-tag">🏠 CHILL VIBES</div>
-<h3>Surf Loft</h3>
-<p>Minimal surf lifestyle experience with ocean views.</p>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1618733065186-1341a50e1c97?w=600&h=400&fit=crop">
-<div class="card-tag">✨ PREMIUM</div>
-<h3>Ocean Suite</h3>
-<p>Luxury oceanfront room in Imsouan with private terrace.</p>
-</div>
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1600588257505-b3400ca5f2e5?w=600&h=400&fit=crop">
-<div class="card-tag">🌅 ROOFTOP</div>
-<h3>Private Villa</h3>
-<p>Premium surf retreat with rooftop views of Taghazout.</p>
-</div>
-
-</div>
-
+<section id="booking">
+  <h2>Booking System</h2>
+  <div class="form-group">
+    <div class="card">
+      <input id="name" placeholder="Full Name" required>
+      <input id="email" type="email" placeholder="Email Address" required>
+      <select id="room" required>
+        <option value="">Select Room Type</option>
+        <option value="Surf Loft">Surf Loft - €90/day</option>
+        <option value="Ocean Suite">Ocean Suite - €120/day</option>
+        <option value="Villa">Villa - €150/day</option>
+      </select>
+      <input id="days" type="number" placeholder="Number of Days" min="1" max="90" required>
+      <button onclick="book()" style="width: 100%; margin-top: 15px;">Confirm Booking</button>
+      <div id="result"></div>
+    </div>
+  </div>
 </section>
 
-<!-- EXPERIENCES -->
-
-<section>
-
-<h2>Unforgettable Experiences 🎯</h2>
-
-<!-- SUNSET WAVES -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1586822026-3fb88448e6fe?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🌅 Sunset Waves</h3>
-<p>Catch the golden hour on the Atlantic. Perfect glassy waves at sunset create pure magic on the water. Experience the glow of the setting sun, warm ocean, and an unforgettable feeling of freedom as you ride the last waves of the day.</p>
-<p><strong>Location:</strong> Tamraghte & Imsouan Beaches</p>
-</div>
-</div>
-
-<!-- ROOFTOP CHILL -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🌅 Rooftop Chill Vibes</h3>
-<p>Relax on our stunning rooftop overlooking the Atlantic Ocean in Taghazout. Perfect sunsets, good vibes, and amazing company. Watch the world slow down as you sip local mint tea and share stories with fellow surfers.</p>
-<p><strong>Location:</strong> Taghazout Rooftop Terrace</p>
-</div>
-</div>
-
-<!-- SURF LESSONS -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🏄‍♂️ Professional Surf Lessons</h3>
-<p>Learn from certified instructors right on the beaches of Taghazout, Imsouan, and Tamraghte. Perfect waves for all levels, from beginners to advanced surfers. Small groups ensure personalized attention and rapid progress.</p>
-<p><strong>Location:</strong> Tamraghte & Imsouan Beaches</p>
-</div>
-</div>
-
-<!-- BREAKFAST -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🥐 Fresh Breakfast Experience</h3>
-<p>Start your day with authentic Moroccan and international breakfast. Fresh pastries, local bread, homemade jams, and energizing smoothies. Fueled and ready for a perfect day of surfing and exploration.</p>
-<p><strong>Location:</strong> OCEVIA House, Taghazout</p>
-</div>
-</div>
-
-<!-- DINNER -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🍽️ Sunset Dinner by the Ocean</h3>
-<p>Enjoy culinary excellence with fresh seafood and traditional Moroccan dishes. Every dinner is a celebration with views of the Atlantic and the sound of waves. Share stories and connect with your fellow surfers under the stars.</p>
-<p><strong>Location:</strong> Oceanfront Terrace, Imsouan</p>
-</div>
-</div>
-
-<!-- ADVENTURE EXPLORATION -->
-<div class="experience-card">
-<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop" class="experience-image">
-<div class="experience-content">
-<h3>🚴‍♂️ Adventure & Exploration</h3>
-<p>Discover hidden gems around Taghazout, Tamraghte, and Imsouan. Hike coastal cliffs, explore Berber villages, visit local markets, and immerse yourself in authentic Moroccan culture. Adventure awaits every corner.</p>
-<p><strong>Location:</strong> Taghazout Region</p>
-</div>
-</div>
-
+<section id="dashboard">
+  <h2>Dashboard</h2>
+  <div class="stats">
+    <div class="stat-card">
+      <h4>Total Bookings</h4>
+      <div class="value" id="count">0</div>
+    </div>
+    <div class="stat-card">
+      <h4>Revenue</h4>
+      <div class="value" id="revenue">€0</div>
+    </div>
+    <div class="stat-card">
+      <h4>Pending Payments</h4>
+      <div class="value" id="pending">0</div>
+    </div>
+  </div>
 </section>
 
-<!-- SURF CONDITIONS -->
-
-<section>
-
-<h2>Live Surf Conditions 🌊</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>Wave Height</h3>
-<p id="waveHeight" style="font-size:40px;color:#1e90ff;margin-top:12px">
-1.8m
-</p>
+<!-- CHAT -->
+<div class="chat" id="chat">
+  <div class="chat-header">🤖 OCEVIA AI Assistant</div>
+  <div class="chat-body" id="chatBody"></div>
+  <input id="msg" type="text" placeholder="Ask a question..." onkeydown="if(event.key==='Enter') sendMsg()">
 </div>
 
-<div class="card">
-<h3>Water Temp</h3>
-<p id="waterTemp" style="font-size:40px;color:#00d4ff;margin-top:12px">
-21°C
-</p>
-</div>
+<button class="chat-toggle" onclick="toggleChat()">💬</button>
 
-<div class="card">
-<h3>Wind Speed</h3>
-<p id="windSpeed" style="font-size:40px;color:#7dff7d;margin-top:12px">
-12 km/h
-</p>
-</div>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-<div class="card">
-<h3>Tide</h3>
-<p id="tide" style="font-size:40px;color:#ffc107;margin-top:12px">
-High
-</p>
-</div>
+// Initialize Supabase (Client-side only)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const apiBase = import.meta.env.VITE_API_URL || '/api';
 
-</div>
+let authToken = localStorage.getItem('authToken');
 
-</section>
+// ===== BOOKING =====
+window.book = async function() {
+  try {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const room = document.getElementById('room').value;
+    const days = parseInt(document.getElementById('days').value);
+    const resultEl = document.getElementById('result');
 
-<!-- BOOKING -->
+    // Validation
+    if (!name || !email || !room || !days) {
+      showResult('Fill all fields', 'error');
+      return;
+    }
 
-<section id="bookingSection">
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showResult('Invalid email address', 'error');
+      return;
+    }
 
-<h2>Book Your Surf Adventure</h2>
+    if (days < 1 || days > 90) {
+      showResult('Days must be between 1 and 90', 'error');
+      return;
+    }
 
-<div class="booking">
+    const response = await fetch(`${apiBase}/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, room, days })
+    });
 
-<input id="name" placeholder="Full Name">
+    const data = await response.json();
 
-<input id="email" placeholder="Email">
+    if (!response.ok) {
+      showResult(data.error || 'Booking failed', 'error');
+      return;
+    }
 
-<select id="room">
-<option>Surf Loft</option>
-<option>Ocean Suite</option>
-<option>Private Villa</option>
-</select>
+    const price = calculatePrice(room, days);
+    showResult(`✅ Booking confirmed! Total: €${price}`, 'success');
+    
+    // Send confirmation email
+    await sendBookingEmail(name, email, room, days, price, data.booking.id);
+    
+    // Load dashboard
+    loadDashboard();
+    
+    // Reset form
+    document.getElementById('name').value = '';
+    document.getElementById('email').value = '';
+    document.getElementById('room').value = '';
+    document.getElementById('days').value = '';
+  } catch (err) {
+    console.error('Booking error:', err);
+    showResult('An error occurred. Please try again.', 'error');
+  }
+};
 
-<input id="days" type="number" placeholder="Number of Days">
-
-<button class="btn primary" onclick="book()">
-Confirm Booking
-</button>
-
-<p id="result" style="margin-top:15px"></p>
-
-</div>
-
-</section>
-
-<!-- DASHBOARD -->
-
-<section>
-
-<h2>Admin Dashboard</h2>
-
-<div class="admin">
-
-<p>
-Total Bookings:
-<span id="count">0</span>
-</p>
-
-<p>
-Revenue:
-<span id="revenue">0€</span>
-</p>
-
-</div>
-
-</section>
-
-<!-- CHATBOT -->
-
-<div class="chatbot" id="chat">
-
-<div class="chat-header">
-OCEVIA Assistant
-</div>
-
-<div class="chat-body" id="chatBody">
-
-<p>
-Hello 👋 I can help you plan your surf stay in Taghazout!
-</p>
-
-</div>
-
-<div class="chat-input">
-
-<input id="msg" placeholder="Ask something...">
-
-<button onclick="sendMsg()">
-Send
-</button>
-
-</div>
-
-</div>
-
-<div class="chat-toggle" onclick="toggleChat()">
-Chat
-</div>
-
-<!-- WHATSAPP -->
-
-<a class="whatsapp" href="https://wa.me/212600000000">
-WhatsApp
-</a>
-
-<!-- FOOTER -->
-
-<footer>
-© 2026 OCEVIA Surf House Taghazout 🌊
-</footer>
-
-<script>
-
-/* SUPABASE */
-
-const supabaseUrl =
-"https://YOUR_PROJECT.supabase.co";
-
-const supabaseKey =
-"YOUR_SUPABASE_ANON_KEY";
-
-const supabaseClient =
-supabase.createClient(
-supabaseUrl,
-supabaseKey
-);
-
-/* EMAILJS */
-
-emailjs.init(
-"YOUR_EMAILJS_PUBLIC_KEY"
-);
-
-/* STRIPE */
-
-const stripe =
-Stripe(
-"YOUR_STRIPE_PUBLIC_KEY"
-);
-
-/* BOOKING */
-
-async function book(){
-
-let name =
-document.getElementById("name").value;
-
-let email =
-document.getElementById("email").value;
-
-let room =
-document.getElementById("room").value;
-
-let days =
-document.getElementById("days").value;
-
-if(!name || !email || !days){
-
-alert("Fill all fields");
-
-return;
-
+function calculatePrice(room, days) {
+  const prices = { 'Surf Loft': 90, 'Ocean Suite': 120, 'Villa': 150 };
+  return (prices[room] || 0) * days;
 }
 
-let price = days * 90;
-
-const { data, error } =
-await supabaseClient
-.from("bookings")
-.insert([
-{
-name,
-email,
-room,
-days,
-price
+function showResult(msg, type) {
+  const el = document.getElementById('result');
+  el.textContent = msg;
+  el.className = `result ${type}`;
+  setTimeout(() => { el.textContent = ''; el.className = ''; }, 5000);
 }
-]);
 
-if(error){
+async function sendBookingEmail(name, email, room, days, price, bookingId) {
+  try {
+    await fetch(`${apiBase}/email/send-booking-confirmation`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, room, days, price, bookingId })
+    });
+  } catch (err) {
+    console.error('Email send error:', err);
+  }
+}
 
-console.log(error);
+// ===== DASHBOARD =====
+window.loadDashboard = async function() {
+  try {
+    const response = await fetch(`${apiBase}/bookings`, {
+      headers: authToken ? { 'Authorization': `Bearer ${authToken}` } : {}
+    });
 
-alert("Booking failed");
+    if (!response.ok) return;
 
-}else{
+    const data = await response.json();
+    const bookings = data.data || [];
 
-document.getElementById("result")
-.innerText =
-"Booking Confirmed 🌊 Price: "
-+ price + "€";
+    let total = 0;
+    let pending = 0;
 
-sendBookingEmail(
-name,
-email,
-room,
-days,
-price
-);
+    bookings.forEach(b => {
+      total += b.price || 0;
+      if (b.status === 'pending') pending++;
+    });
 
+    document.getElementById('count').textContent = bookings.length;
+    document.getElementById('revenue').textContent = '€' + total;
+    document.getElementById('pending').textContent = pending;
+  } catch (err) {
+    console.error('Dashboard error:', err);
+  }
+};
+
+// ===== STRIPE PAYMENT =====
+const stripe = Stripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY);
+
+window.scrollToPay = function() {
+  const email = document.getElementById('email').value;
+  if (!email) {
+    alert('Please enter your email in the booking form');
+    return;
+  }
+  // Payment flow would be implemented here
+  alert('Payment integration coming soon');
+};
+
+// ===== CHAT =====
+window.toggleChat = function() {
+  document.getElementById('chat').classList.toggle('active');
+};
+
+window.sendMsg = async function() {
+  const msgInput = document.getElementById('msg');
+  const msg = msgInput.value.trim();
+  
+  if (!msg) return;
+
+  const chatBody = document.getElementById('chatBody');
+  
+  // User message
+  const userP = document.createElement('p');
+  userP.className = 'user';
+  userP.textContent = 'You: ' + msg;
+  chatBody.appendChild(userP);
+  msgInput.value = '';
+  chatBody.scrollTop = chatBody.scrollHeight;
+
+  try {
+    const response = await fetch(`${apiBase}/chat/message`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: msg })
+    });
+
+    const data = await response.json();
+
+    const aiP = document.createElement('p');
+    aiP.className = 'ai';
+    aiP.textContent = 'AI: ' + (data.reply || 'Unable to process. Please try again.');
+    chatBody.appendChild(aiP);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  } catch (err) {
+    console.error('Chat error:', err);
+    const errP = document.createElement('p');
+    errP.className = 'ai';
+    errP.textContent = 'AI: Sorry, I encountered an error. Please try again.';
+    chatBody.appendChild(errP);
+  }
+};
+
+// ===== SCROLL FUNCTIONS =====
+window.scrollToBook = function() {
+  document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+};
+
+window.handleAuthToggle = function() {
+  // Simple auth toggle for demo
+  alert('Auth system integrated on backend. Login/Register endpoints ready.');
+};
+
+// ===== INITIALIZATION =====
 loadDashboard();
-
-}
-
-}
-
-/* EMAIL */
-
-function sendBookingEmail(
-name,
-email,
-room,
-days,
-price
-){
-
-emailjs.send(
-"YOUR_SERVICE_ID",
-"YOUR_TEMPLATE_ID",
-{
-client_name:name,
-client_email:email,
-room:room,
-days:days,
-price:price
-}
-);
-
-}
-
-/* DASHBOARD */
-
-async function loadDashboard(){
-
-const { data, error } =
-await supabaseClient
-.from("bookings")
-.select("*");
-
-if(data){
-
-let total = 0;
-
-data.forEach(item=>{
-
-total += item.price;
-
-});
-
-document.getElementById("count")
-.innerText = data.length;
-
-document.getElementById("revenue")
-.innerText = total + "€";
-
-}
-
-}
-
-loadDashboard();
-
-/* STRIPE */
-
-function payNow(){
-
-window.location.href =
-"https://buy.stripe.com/test_xxxxxxxxx";
-
-}
-
-/* SURF CONDITIONS */
-
-function updateSurf(){
-
-let wave =
-(Math.random()*2+1).toFixed(1);
-
-let temp =
-Math.floor(Math.random()*6+18);
-
-let wind =
-Math.floor(Math.random()*15+5);
-
-let tides = [
-"High",
-"Low",
-"Mid"
-];
-
-let tide =
-tides[
-Math.floor(
-Math.random()*tides.length
-)
-];
-
-document.getElementById("waveHeight")
-.innerText =
-wave + "m";
-
-document.getElementById("waterTemp")
-.innerText =
-temp + "°C";
-
-document.getElementById("windSpeed")
-.innerText =
-wind + " km/h";
-
-document.getElementById("tide")
-.innerText =
-tide;
-
-}
-
-updateSurf();
-
-setInterval(updateSurf,30000);
-
-/* CHATBOT */
-
-function toggleChat(){
-
-let c =
-document.getElementById("chat");
-
-c.style.display =
-c.style.display==="flex"
-? "none"
-: "flex";
-
-}
-
-function sendMsg(){
-
-let msg =
-document.getElementById("msg").value;
-
-if(!msg) return;
-
-let chat =
-document.getElementById("chatBody");
-
-chat.innerHTML +=
-"<p><b>You:</b> "
-+ msg +
-"</p>";
-
-setTimeout(()=>{
-
-chat.innerHTML +=
-"<p><b>OCEVIA:</b> Perfect 🌊 We can help you book your surf stay in Taghazout.</p>";
-
-chat.scrollTop =
-chat.scrollHeight;
-
-},500);
-
-document.getElementById("msg").value="";
-
-}
-
-/* SCROLL */
-
-function scrollBooking(){
-
-document
-.getElementById("bookingSection")
-.scrollIntoView({
-behavior:"smooth"
-});
-
-}
-
 </script>
 
 </body>
