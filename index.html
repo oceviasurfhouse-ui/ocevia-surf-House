@@ -151,10 +151,13 @@ padding:25px;
 border-radius:20px;
 border:1px solid rgba(255,255,255,0.08);
 transition:0.3s;
+position:relative;
+overflow:hidden;
 }
 
 .card:hover{
 transform:translateY(-8px);
+border-color:rgba(30,144,255,0.3);
 }
 
 .card img{
@@ -163,6 +166,55 @@ height:230px;
 object-fit:cover;
 border-radius:15px;
 margin-bottom:15px;
+}
+
+.card-tag{
+position:absolute;
+top:10px;
+right:10px;
+background:rgba(30,144,255,0.9);
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:bold;
+}
+
+/* EXPERIENCE SECTION */
+
+.experience-card{
+display:flex;
+align-items:center;
+gap:30px;
+margin:40px 0;
+text-align:left;
+max-width:900px;
+margin-left:auto;
+margin-right:auto;
+background:#111;
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.experience-image{
+width:280px;
+height:280px;
+border-radius:15px;
+object-fit:cover;
+flex-shrink:0;
+}
+
+.experience-content h3{
+font-size:28px;
+margin-bottom:12px;
+color:#1e90ff;
+}
+
+.experience-content p{
+font-size:16px;
+color:#ccc;
+line-height:1.6;
+margin-bottom:10px;
 }
 
 /* BOOKING */
@@ -309,6 +361,16 @@ gap:8px;
 font-size:28px;
 }
 
+.experience-card{
+flex-direction:column;
+gap:20px;
+}
+
+.experience-image{
+width:100%;
+height:220px;
+}
+
 }
 
 </style>
@@ -333,11 +395,11 @@ font-size:28px;
 <div class="hero-content">
 
 <h1>
-Premium Surf Experience
+Premium Surf Experience in Taghazout
 </h1>
 
 <p>
-Surf • Stay • Explore • Book Online 🌍
+Surf • Stay • Explore • Adventure Awaits 🌍
 </p>
 
 <button class="btn primary" onclick="scrollBooking()">
@@ -356,28 +418,89 @@ Pay Deposit 💳
 
 <section>
 
-<h2>Luxury Surf Stay</h2>
+<h2>Luxury Surf Stay in Taghazout</h2>
 
 <div class="grid">
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98">
+<img src="https://images.unsplash.com/photo-1631049307038-da0ec9d70304?w=600&h=400&fit=crop">
+<div class="card-tag">🏠 CHILL VIBES</div>
 <h3>Surf Loft</h3>
-<p>Minimal surf lifestyle experience.</p>
+<p>Minimal surf lifestyle experience with ocean views.</p>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<img src="https://images.unsplash.com/photo-1618733065186-1341a50e1c97?w=600&h=400&fit=crop">
+<div class="card-tag">✨ PREMIUM</div>
 <h3>Ocean Suite</h3>
-<p>Luxury oceanfront room.</p>
+<p>Luxury oceanfront room in Imsouan with private terrace.</p>
 </div>
 
 <div class="card">
-<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<img src="https://images.unsplash.com/photo-1600588257505-b3400ca5f2e5?w=600&h=400&fit=crop">
+<div class="card-tag">🌅 ROOFTOP</div>
 <h3>Private Villa</h3>
-<p>Premium surf retreat vibes.</p>
+<p>Premium surf retreat with rooftop views of Taghazout.</p>
 </div>
 
+</div>
+
+</section>
+
+<!-- EXPERIENCES -->
+
+<section>
+
+<h2>Unforgettable Experiences 🎯</h2>
+
+<!-- ROOFTOP CHILL -->
+<div class="experience-card">
+<img src="https://images.unsplash.com/photo-1514565131-fce0801e5785?w=400&h=400&fit=crop" class="experience-image">
+<div class="experience-content">
+<h3>🌅 Rooftop Chill Vibes</h3>
+<p>Relax on our stunning rooftop overlooking the Atlantic Ocean in Taghazout. Perfect sunsets, good vibes, and amazing company. Watch the world slow down as you sip local mint tea and share stories with fellow surfers.</p>
+<p><strong>Location:</strong> Taghazout Rooftop Terrace</p>
+</div>
+</div>
+
+<!-- SURF LESSONS -->
+<div class="experience-card">
+<img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop" class="experience-image">
+<div class="experience-content">
+<h3>🏄‍♂️ Professional Surf Lessons</h3>
+<p>Learn from certified instructors right on the beaches of Taghazout, Imsouan, and Tamraghte. Perfect waves for all levels, from beginners to advanced surfers. Small groups ensure personalized attention and rapid progress.</p>
+<p><strong>Location:</strong> Tamraghte & Imsouan Beaches</p>
+</div>
+</div>
+
+<!-- BREAKFAST -->
+<div class="experience-card">
+<img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop" class="experience-image">
+<div class="experience-content">
+<h3>🥐 Fresh Breakfast Experience</h3>
+<p>Start your day with authentic Moroccan and international breakfast. Fresh pastries, local bread, homemade jams, and energizing smoothies. Fueled and ready for a perfect day of surfing and exploration.</p>
+<p><strong>Location:</strong> OCEVIA House, Taghazout</p>
+</div>
+</div>
+
+<!-- DINNER -->
+<div class="experience-card">
+<img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=400&h=400&fit=crop" class="experience-image">
+<div class="experience-content">
+<h3>🍽️ Sunset Dinner by the Ocean</h3>
+<p>Enjoy culinary excellence with fresh seafood and traditional Moroccan dishes. Every dinner is a celebration with views of the Atlantic and the sound of waves. Share stories and connect with your fellow surfers under the stars.</p>
+<p><strong>Location:</strong> Oceanfront Terrace, Imsouan</p>
+</div>
+</div>
+
+<!-- ADVENTURE EXPLORATION -->
+<div class="experience-card">
+<img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop" class="experience-image">
+<div class="experience-content">
+<h3>🚴‍♂️ Adventure & Exploration</h3>
+<p>Discover hidden gems around Taghazout, Tamraghte, and Imsouan. Hike coastal cliffs, explore Berber villages, visit local markets, and immerse yourself in authentic Moroccan culture. Adventure awaits every corner.</p>
+<p><strong>Location:</strong> Taghazout Region</p>
+</div>
 </div>
 
 </section>
@@ -426,7 +549,7 @@ High
 
 <section id="bookingSection">
 
-<h2>Booking System</h2>
+<h2>Book Your Surf Adventure</h2>
 
 <div class="booking">
 
@@ -485,7 +608,7 @@ OCEVIA Assistant
 <div class="chat-body" id="chatBody">
 
 <p>
-Hello 👋 I can help you plan your surf stay.
+Hello 👋 I can help you plan your surf stay in Taghazout!
 </p>
 
 </div>
@@ -515,7 +638,7 @@ WhatsApp
 <!-- FOOTER -->
 
 <footer>
-© 2026 OCEVIA Surf House 🌊
+© 2026 OCEVIA Surf House Taghazout 🌊
 </footer>
 
 <script>
@@ -757,7 +880,7 @@ chat.innerHTML +=
 setTimeout(()=>{
 
 chat.innerHTML +=
-"<p><b>OCEVIA:</b> Perfect 🌊 We can help you book your surf stay.</p>";
+"<p><b>OCEVIA:</b> Perfect 🌊 We can help you book your surf stay in Taghazout.</p>";
 
 chat.scrollTop =
 chat.scrollHeight;
